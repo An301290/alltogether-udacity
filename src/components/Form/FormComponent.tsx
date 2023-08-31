@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, FormControl } from "@mui/material";
 import InputField from "./InputField";
 import AddButton from "./AddButton";
+import UserList from "../UserList/UserList";
 
 interface FormData {
   firstName: string;
@@ -16,6 +17,8 @@ const FormComponent = (props: FormData) => {
     userName: "",
   });
 
+  const [numberOfGames, setNumberOfGames] = useState(0);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -24,31 +27,47 @@ const FormComponent = (props: FormData) => {
     }));
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("Form data submitted:", formData);
+  };
+
   return (
-    <Container maxWidth="sm">
-      <form>
-        <InputField
-          label={"First Name"}
-          name={"firstName"}
-          value={formData.firstName}
-          onChange={handleChange}
-        />
-        <InputField
-          label={"Last Name"}
-          name={"lastName"}
-          value={formData.lastName}
-          onChange={handleChange}
-        />
-        <InputField
-          label={"User Name"}
-          name={"userName"}
-          value={formData.userName}
-          onChange={handleChange}
-          helperText="User Name already exist"
-        />
-        <AddButton />
+    <>
+      <form onClick={handleSubmit}>
+        <FormControl
+          sx={{
+            border: 1,
+            m: 4,
+            p: 5,
+            borderColor: "#D3D3D3",
+            width: 500,
+          }}
+        >
+          <InputField
+            label={"First Name"}
+            name={"firstName"}
+            value={formData.firstName}
+            onChange={handleChange}
+          />
+          <InputField
+            label={"Last Name"}
+            name={"lastName"}
+            value={formData.lastName}
+            onChange={handleChange}
+          />
+          <InputField
+            label={"User Name"}
+            name={"userName"}
+            value={formData.userName}
+            onChange={handleChange}
+            helperText="User Name already exist"
+          />
+          <AddButton />
+        </FormControl>
       </form>
-    </Container>
+      <UserList userName={formData.userName} numberOfGames={numberOfGames} />
+    </>
   );
 };
 

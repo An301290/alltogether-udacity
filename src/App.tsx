@@ -1,13 +1,21 @@
-import React from "react";
+import { Box } from "@mui/material";
 import NavBarComponent from "./components/NavBarComponent";
 import FormComponent from "./components/Form/FormComponent";
 
 function App() {
   return (
-    <div>
+    <Box>
       <NavBarComponent />
-      <FormComponent firstName="" lastName="" userName="" />
-    </div>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <FormComponent firstName="" lastName="" userName="" />
+      </Box>
+    </Box>
   );
 }
 
