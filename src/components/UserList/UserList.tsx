@@ -1,4 +1,6 @@
+import React, { useState } from "react";
 import {
+  Box,
   Table,
   TableBody,
   TableCell,
@@ -6,63 +8,52 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Box,
+  Switch,
 } from "@mui/material";
-import ToggleButton from "./ToggleButton";
-interface Props {
-  userName: string;
+
+import { FormData } from "../Form/FormComponent";
+
+interface UserListProps {
+  users: Array<FormData>;
+  handleIncreaseNumber: () => void;
   numberOfGames: number;
+  check: boolean;
 }
 
-function createData(userName: string, numberOfGames: number) {
-  return { userName, numberOfGames };
-}
-
-const UserList = (props: Props) => {
-  const { userName, numberOfGames } = props;
-  const rows = [createData(userName, numberOfGames)];
+const UserList: React.FC<UserListProps> = ({
+  users,
+  handleIncreaseNumber,
+  numberOfGames,
+  check,
+}) => {
   return (
-    <TableContainer
-      sx={{
-        border: 1,
-        p: 5,
-        borderColor: "#D3D3D3",
-        width: 500,
-      }}
-      component={Paper}
-    >
-      <Table size="small" aria-label="table">
-        <TableHead>
-          <TableRow>
-            <TableCell>User Name</TableCell>
-            <TableCell align="center">Number of Games</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.userName}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.userName}
-              </TableCell>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  ml:"100px"
-                }}
-              >
-                <ToggleButton />
-                <TableCell align="center">{row.numberOfGames}</TableCell>
-              </Box>
+    <Box sx={{ width: 900 }}>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">First Name</TableCell>
+              <TableCell align="center">Last Name</TableCell>
+              <TableCell align="center">User Name</TableCell>
+              <TableCell align="center">Number of Games</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {users.map((user, index) => (
+              <TableRow key={index}>
+                <TableCell align="center">{user.firstName}</TableCell>
+                <TableCell align="center">{user.lastName}</TableCell>
+                <TableCell align="center">{user.userName}</TableCell>
+                <TableCell align="center">
+                  {check ? numberOfGames : null}
+                  <Switch onClick={handleIncreaseNumber} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 };
 

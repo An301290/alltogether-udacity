@@ -7,7 +7,7 @@ interface InputFieldProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   helperText?: string;
-  error?: boolean;
+  error?: string | undefined;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -16,6 +16,7 @@ const InputField: React.FC<InputFieldProps> = ({
   value,
   onChange,
   helperText,
+  error,
 }) => {
   return (
     <div>

@@ -1,11 +1,19 @@
 import React from "react";
-import { Button, Container } from "@mui/material";
+import { Button } from "@mui/material";
 
-type Props = {};
+interface Props {
+  isFormIncomplete: boolean;
+}
 
 const AddButton = (props: Props) => {
+  const { isFormIncomplete } = props;
   return (
-    <Button type="submit" variant="contained" color="primary">
+    <Button
+      disabled={isFormIncomplete}
+      type="submit"
+      variant="contained"
+      color="primary"
+    >
       Add
     </Button>
   );
